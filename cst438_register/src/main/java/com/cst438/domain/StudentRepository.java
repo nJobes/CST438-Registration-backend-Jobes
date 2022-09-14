@@ -8,4 +8,7 @@ public interface StudentRepository extends CrudRepository <Student, Integer> {
 	// default JPA behavior that findBy methods return List<Student> except for findById.
 	public Student findByEmail(String email);
 
+	@SuppressWarnings("unchecked")
+	Student save(Student e);
+	
 }
