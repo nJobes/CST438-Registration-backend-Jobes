@@ -28,7 +28,7 @@ public class CourseController {
 		//TODO  complete this method in homework 4
 		if(course_id == courseDTO.course_id) 
 		{
-			//Loop through grades for the course and update each students enrollment with fiunal grades
+			//Loop through grades for the course and update each students enrollment with final grades
 			for (int i = 0; i < courseDTO.grades.size(); i++) {
 				Enrollment enroll = enrollmentRepository.findByEmailAndCourseId(courseDTO.grades.get(i).student_email, course_id);
 				enroll.setCourseGrade(courseDTO.grades.get(i).grade);
