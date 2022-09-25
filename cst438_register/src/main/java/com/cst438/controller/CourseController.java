@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cst438.domain.Course;
 import com.cst438.domain.CourseDTOG;
 import com.cst438.domain.Enrollment;
 import com.cst438.domain.EnrollmentRepository;
@@ -25,7 +26,19 @@ public class CourseController {
 	public void updateCourseGrades( @RequestBody CourseDTOG courseDTO, @PathVariable("course_id") int course_id) {
 		
 		//TODO  complete this method in homework 4
-		
+		if(course_id == courseDTO.course_id) 
+		{
+			//Loop through grades for the course and update each students enrollment with fiunal grades
+			for (int i = 0; i < courseDTO.grades.size(); i++) {
+				Enrollment enroll = enrollmentRepository.findByEmailAndCourseId(courseDTO.grades.get(i).student_email, course_id);
+				enroll.setCourseGrade(courseDTO.grades.get(i).grade);
+				Enrollment result = enrollmentRepository.save(enroll);
+			}
+		}
+		else
+		{
+			//Do something that indicates bad time happen
+		}
 	}
 
 }
