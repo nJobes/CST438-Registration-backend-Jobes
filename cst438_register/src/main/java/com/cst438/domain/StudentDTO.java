@@ -6,6 +6,7 @@ public class StudentDTO {
 	public String email;
 	public int statusCode;
 	public String status;
+	public String message;
 	
 	public StudentDTO() {
 		this.student_id = 0;
@@ -13,6 +14,7 @@ public class StudentDTO {
 		this.email = null;
 		this.status = null;
 		this.statusCode = 0;
+		this.message = "";
 	}
 	
 	public StudentDTO(int student_id, String name, String email) {
