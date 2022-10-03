@@ -59,14 +59,14 @@ public class EndToEndAddStudentTest {
 
 
 	/*
-	 * Student add course TEST_COURSE_ID to schedule for 2021 Fall semester.
+	 * Attempt to add a bad entry, a real student, and a duplicate student.
 	 */
 	
 	@Test
 	public void addStudentTest() throws Exception {
 
 		/*
-		 * if student is already enrolled, then delete the enrollment.
+		 * if student already exists, then delete the student.
 		 */
 		
 		Student x = null;
@@ -94,10 +94,13 @@ public class EndToEndAddStudentTest {
 			driver.get(URL);
 			Thread.sleep(SLEEP_DURATION);
 
-			// select the last of the radio buttons on the list of semesters page.
+			// select the add student link button
 			
 			WebElement we = driver.findElement(By.xpath("//*[@id='goToAddStudentButton']"));
 			we.click();
+			
+			
+			//Click to add student without enterign student info
 			
 			driver.findElement(By.xpath("//*[@id='addStudentButton']")).click();
 			Thread.sleep(SLEEP_DURATION);
@@ -107,22 +110,26 @@ public class EndToEndAddStudentTest {
 			
 			assertTrue(messageCorrect, "Incorrect response message displayed after attemtping to add incomplete information");
 			
+			
+			//Fill in text fields with valid data 
 			driver.findElement(By.xpath("//input[@id='nameIn']")).sendKeys(TEST_USER_NAME);
 			driver.findElement(By.xpath("//input[@id='emailIn']")).sendKeys(TEST_USER_EMAIL);
 			driver.findElement(By.xpath("//*[@id='addStudentButton']")).click();
 			Thread.sleep(SLEEP_DURATION);
 			
+			//Verify student was found in repo
 			Student stu = studentRepository.findByEmail(TEST_USER_EMAIL);
 			boolean stuFound = (stu != null);
 			
 			assertTrue(stuFound, "Student not found in repository after adding");
 			
-			
+			//Verify message is correct
 			Message = driver.findElement(By.xpath("//h3[@id='respMessage']")).getText();
 			messageCorrect = Message.equals("Student added successfully.");
 			
 			assertTrue(messageCorrect, "Incorrect response message displayed after adding");
 			
+			//Repeat test, with the same entry, should get a different response message, verify this occurs
 			driver.findElement(By.xpath("//*[@id='addStudentButton']")).click();
 			Thread.sleep(SLEEP_DURATION);
 			
