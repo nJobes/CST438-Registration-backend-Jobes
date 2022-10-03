@@ -30,7 +30,7 @@ public class StudentController {
 	
 	@PostMapping("/student/add")
 	@Transactional
-	public StudentDTO addCourse( @RequestBody StudentDTO studentDTO  ) { 
+	public StudentDTO addStudent( @RequestBody StudentDTO studentDTO  ) { 
 
 		String student_email = studentDTO.email;   // student's email
 		String student_name = studentDTO.name;
@@ -49,7 +49,7 @@ public class StudentController {
 			result.message = "Student added successfully.";
 			return result; //return the auto completed student object
 		} else {
-			throw  new ResponseStatusException( HttpStatus.BAD_REQUEST, "Student email already exists.  ");
+			throw  new ResponseStatusException( HttpStatus.BAD_REQUEST, "Student email already exists.");
 		}
 		
 	}
